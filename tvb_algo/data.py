@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import logging
+import tensorflow as tf
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ def rm_cache():
     rmtree(_cache_folder())
 
 
-def tvb76_weights_lengths():
+def tvb76_weights_lengths(tensors=False):
     import zipfile, urllib.request
     cache_fname = os.path.join(_cache_folder(), 'tvb76.npz')
     if not os.path.exists(cache_fname):
@@ -28,7 +29,10 @@ def tvb76_weights_lengths():
                      W=np.loadtxt(zf.open('weights.txt')),
                      D=np.loadtxt(zf.open('tract_lengths.txt')))
     npz = np.load(cache_fname)
-    return npz['W'], npz['D']
+    out = npz['W'], npz['D']
+    if tensors:
+        return [tf.convert_to_tensor(_) for _ in out]
+    return out
 
 
 # TODO generate synthetic data e.g. surfaces, connectivities, etc.
