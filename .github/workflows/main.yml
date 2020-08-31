@@ -1,0 +1,17 @@
+name: build
+on: [push]
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: build futhark
+        run: >
+          sudo apt-get update
+          git clone https://github.com/diku-dk/futhark
+          cd futhark
+          stack setup
+          stack build --fast
+          stack install
+      - name: check futhark works
+        run: futhark -V
