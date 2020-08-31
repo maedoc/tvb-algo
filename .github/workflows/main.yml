@@ -5,13 +5,21 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - name: build futhark
+      - name: cache futhark build
+        id: cache-futhark
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/.local/bin/futhark
+          key: ${{ runner.os }}-futhark
+  
+      - name: get & build Futhark
+        if: steps.cache-futhark.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get update
           git clone https://github.com/diku-dk/futhark
           cd futhark
           stack setup
           stack build --fast
           stack install
-      - name: check futhark works
-        run: futhark -V
+      
+      - name: check Futhark is working
+        run: /home/runner/.local/bin/futhark -V
