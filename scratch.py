@@ -54,4 +54,4 @@ for i, speed in enumerate([1.0, 2.0, 10.0]):
     ylabel('# delay')
 tight_layout()
 print('%.3fs elapsed' % (elapsed,))
-show()
+#show()
