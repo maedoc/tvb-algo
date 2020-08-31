@@ -23,3 +23,5 @@ jobs:
       
       - name: check Futhark is working
         run: /home/runner/.local/bin/futhark -V
+      - name: compile test program
+        run: echo 5 | /home/runner/.local/bin/futhark run test.fut
