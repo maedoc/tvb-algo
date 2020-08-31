@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build futhark
-        run: >
+        run: |
           sudo apt-get update
           git clone https://github.com/diku-dk/futhark
           cd futhark
