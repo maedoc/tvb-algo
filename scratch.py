@@ -34,8 +34,10 @@ def sim(dt=0.05, tf=150.0, k=0.0, speed=1.0, freq=1.0):
 dt = 0.05
 figure(figsize=(12, 6))
 from time import time
+from tqdm import tqdm
 elapsed = 0.0
-for i, speed in enumerate([1.0, 2.0, 10.0]):
+speeds = [1.0, 2.0, 10.0]
+for i, speed in enumerate(tqdm(speeds)):
     tic = time()
     t, x = sim(dt, 150.0, 1e-3, speed)
     elapsed += time() - tic
